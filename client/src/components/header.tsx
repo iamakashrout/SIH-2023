@@ -30,6 +30,9 @@ const header = () => {
     <>
       <header className="bg-gray-50 py-1">
         <div className="xl:container xl:mx-auto flex items-center sm:flex-row sm:justify-between text-center py-3">
+        <div className="flex justify-center items-center -mr-10">
+            {minutes} : {seconds}
+          </div>
           <div className="md:flex-none w-96 order-2 sm:order-1 flex items-center justify-center py-6 sm:py-0">
             <input
               type="text"
@@ -42,7 +45,7 @@ const header = () => {
             />
           </div>
           <div className="shrink w-80 sm:order-2">
-            <a className="font-bold uppercase text-3xl">News Analysis</a>
+            <a className="font-bold uppercase text-4xl">News Analysis</a>
           </div>
           <div className="w-96 order-3 flex justify-center items-center">
             <div className="flex gap-6">
@@ -58,9 +61,6 @@ const header = () => {
                 <ImYoutube color="#888888" />
               </a>
             </div>
-          </div>
-          <div className="flex justify-center items-center -ml-10 -mr-10">
-            {minutes} : {seconds}
           </div>
         </div>
         {/* Divider */}
