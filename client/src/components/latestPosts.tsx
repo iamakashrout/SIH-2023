@@ -3,7 +3,7 @@ import Card from "../components/card";
 const latestPosts = () => {
   return (
     <>
-      <div className="flex justify-center items-center text-3xl font-bold m-3">
+      <div className="flex justify-center items-center text-3xl font-bold m-6 libre">
         LATEST POSTS
       </div>
       <hr className="mb-3" />
