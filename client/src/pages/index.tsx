@@ -5,7 +5,7 @@ import Categories from "@/components/categories";
 import LatestPosts from "@/components/latestPosts";
 import Card from "@/components/card";
 const inter = Inter({ subsets: ["latin"] });
-import ImageGallery from '@/components/ImageCarousel'
+import ImageGallery from '@/components/ImageGallery'
 
 export default function Home() {
   return (
