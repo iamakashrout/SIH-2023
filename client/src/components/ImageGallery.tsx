@@ -2,26 +2,26 @@ import React from 'react';
 
 const ImageGallery = () => {
   const imagesWithCaptions = [
-    { imagePath: './categories/images/Technology2.PNG', caption: 'Technology' },
-    { imagePath: "./categories/images/Sports2.PNG", caption: 'Sports' },
-    { imagePath: "./categories/images/Food.PNG", caption: 'Food' },
-    { imagePath: "./categories/images/Health2.jpg", caption: 'Health' },
+    { imagePath: 'https://source.unsplash.com/Bd7gNnWJBkU', caption: 'Technology' },
+    { imagePath: "https://source.unsplash.com/OgqWLzWRSaI", caption: 'Sports' },
+    { imagePath: "https://source.unsplash.com/KDBmLUFxHP8", caption: 'Food' },
+    { imagePath: "https://source.unsplash.com/NTyBbu66_SI", caption: 'Health' },
   ];
 
   return (
-    <div className="flex">
+    <div className="flex hover:cursor-pointer">
       {imagesWithCaptions.map((item, index) => (
         <div
           key={index}
-          className="flex-none border border-gray-300"
+          className="flex-none "
           style={{ width: '25vw', minHeight: '200px' }} 
         >
           <img
             src={item.imagePath}
             alt={`Image ${index + 1}`}
-            className="w-full h-auto"
+            className="w-full h-[450px] hover:scale-[1.01] duration-300"
           />
-          <p className="text-center font-bold">{item.caption}</p>
+          <p className="text-center font-bold mt-2 uppercase">{item.caption}</p>
         </div>
       ))}
     </div>

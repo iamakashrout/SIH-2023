@@ -45,19 +45,19 @@ const header = () => {
             />
           </div>
           <div className="shrink w-80 sm:order-2">
-            <a className="font-bold uppercase text-4xl">News Analysis</a>
+            <a className="font-bold uppercase text-[34px] libre">News Analysis</a>
           </div>
           <div className="w-96 order-3 flex justify-center items-center">
             <div className="flex gap-6">
-              ​​ <a className="hover:cursor-pointer">About</a>​
-              <a className="hover:cursor-pointer">Refresh</a>
-              <a className="mt-1 hover:cursor-pointer">
+              ​​ <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">About</a>​
+              <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">Refresh</a>
+              <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImFacebook color="#888888" />
               </a>
-              <a className="mt-1 hover:cursor-pointer">
+              <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImTwitter color="#888888" />
               </a>
-              <a className="mt-1 hover:cursor-pointer">
+              <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImYoutube color="#888888" />
               </a>
             </div>
