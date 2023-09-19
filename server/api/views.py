@@ -31,6 +31,13 @@ import urllib.request
 import pandas as pd
 import torch
 
+import urllib.request
+from urllib.request import urlopen
+import ssl
+import json
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
 tokenizer = AutoTokenizer.from_pretrained("tokenizer_roberta/sentiment_tokenizer/")
 model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment/")
 labels=[]
@@ -156,39 +163,39 @@ def PreProcessTheData():
     df = df[~df['Heading'].str.contains('horoscope', case=False)]
     df.Body = preprocess(df.Body)
     df = df.dropna()
-    df2 = pd.read_excel("IndiaTv.xlsx")
-    df2 = df2[~df2['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    df2 = df2.loc[~(df2.Heading.str.contains("Aaj Ki Baat") | df2.Heading.str.contains("Horoscope")\
-                | df2.Heading.str.contains("Aap Ki Adalat"))]
+    # df2 = pd.read_excel("IndiaTv.xlsx")
+    # df2 = df2[~df2['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    # df2 = df2.loc[~(df2.Heading.str.contains("Aaj Ki Baat") | df2.Heading.str.contains("Horoscope")\
+    #             | df2.Heading.str.contains("Aap Ki Adalat"))]
     
-    df2 = df2[~df2['Heading'].str.contains('horoscope', case=False)]
-    df2.Body = preprocess(df2.Body)
-    df2 = df2.dropna()
-    df3 = pd.read_excel("News18.xlsx")
-    df3 = df3[~df3['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    df3 = df3[~df3['Heading'].str.contains('horoscope', case=False)]
-    df3.Body = preprocess(df3.Body)
-    df3 = df3.dropna()
-    df4 = pd.read_excel("ThePrint.xlsx")
-    df4 = df4[~df4['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    df4 = df4[~(df4['Body'].str.contains('dear subscriber', case=False))]
-    df4 = df4[~df4['Heading'].str.contains('horoscope', case=False)]
-    df4.Body = preprocess(df4.Body)
-    df4 = df4.dropna()
-    df5 = pd.read_excel("News18_Punjab.xlsx")
-    df5 = df5[~df5['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    df5 = df5[~(df5['Body'].str.contains('dear subscriber', case=False))]
-    df5 = df5[~df5['Heading'].str.contains('horoscope', case=False)]
-    df5.Body = preprocess(df5.Body)
-    df5 = df5.dropna()
-    df6 = pd.read_excel("AajTak.xlsx")
-    df6 = df6[~df6['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    df6 = df6[~(df6['Body'].str.contains('dear subscriber', case=False))]
-    df6 = df6[~df6['Heading'].str.contains('horoscope', case=False)]
-    df6.Body = preprocess(df6.Body)
-    df6 = df6.dropna()
+    # df2 = df2[~df2['Heading'].str.contains('horoscope', case=False)]
+    # df2.Body = preprocess(df2.Body)
+    # df2 = df2.dropna()
+    # df3 = pd.read_excel("News18.xlsx")
+    # df3 = df3[~df3['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    # df3 = df3[~df3['Heading'].str.contains('horoscope', case=False)]
+    # df3.Body = preprocess(df3.Body)
+    # df3 = df3.dropna()
+    # df4 = pd.read_excel("ThePrint.xlsx")
+    # df4 = df4[~df4['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    # df4 = df4[~(df4['Body'].str.contains('dear subscriber', case=False))]
+    # df4 = df4[~df4['Heading'].str.contains('horoscope', case=False)]
+    # df4.Body = preprocess(df4.Body)
+    # df4 = df4.dropna()
+    # df5 = pd.read_excel("News18_Punjab.xlsx")
+    # df5 = df5[~df5['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    # df5 = df5[~(df5['Body'].str.contains('dear subscriber', case=False))]
+    # df5 = df5[~df5['Heading'].str.contains('horoscope', case=False)]
+    # df5.Body = preprocess(df5.Body)
+    # df5 = df5.dropna()
+    # df6 = pd.read_excel("AajTak.xlsx")
+    # df6 = df6[~df6['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    # df6 = df6[~(df6['Body'].str.contains('dear subscriber', case=False))]
+    # df6 = df6[~df6['Heading'].str.contains('horoscope', case=False)]
+    # df6.Body = preprocess(df6.Body)
+    # df6 = df6.dropna()
     df7 = pd.concat([df], ignore_index=True, axis=0)
-    df7["Categories"]=df7["Body"].apply(lambda x:classification(str(x)))
+    df7["Cat"]=df7["Body"].apply(lambda x:classification(str(x)))
     df7["Sentiment"] = df7.Body.apply(lambda x: sentiment(str(x)))
     df7.shape
     file_name = "Final_Prepped_Data.xlsx"
@@ -709,20 +716,20 @@ def AajTak():
     
 def index (request):
     print("The Session started")
-    thread1 = threading.Thread(target=IndiaToday)
-    thread5 = threading.Thread(target=AajTak)
-    thread6 = threading.Thread(target=News18Punj)
+    # thread1 = threading.Thread(target=IndiaToday)
+    # thread5 = threading.Thread(target=AajTak)
+    # thread6 = threading.Thread(target=News18Punj)
 
     # Start the threads
-    thread1.start()
-    thread5.start()
-    thread6.start()
+    # thread1.start()
+    # thread5.start()
+    # thread6.start()
 
-    # Wait for all threads to finish
-    thread1.join()
+    ## Wait for all threads to finish
+    # thread1.join()
 
-    thread5.join()
-    thread6.join()
+    # thread5.join()
+    # thread6.join()
 
     PreProcessTheData()
     news=[]
@@ -732,7 +739,7 @@ def index (request):
         row["Title"]=df["Heading"][ind]
         row["Description"]=df["Body"][ind]
         row["URL"]=df["URL"][ind]
-        row["Category"]=df["Category"][ind]
+        row["Categories"]=df["Cat"][ind]
         row["Sentiment_Score"]=df["Sentiment"][ind]
         news.append(row)
         
