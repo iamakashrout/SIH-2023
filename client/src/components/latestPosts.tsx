@@ -41,10 +41,10 @@ const latestPosts = () => {
                 imgUrl={news["Categories"]}
                 Title={news["Title"]}
                 categories={news["Categories"]}
-                description={news["Description"]}
-                positive = {news["Sentiment_Score"].split(' ')[0]}
-                negative = {news["Sentiment_Score"].split(' ')[1]}
-                neutral={news["Sentiment_Score"].split(' ')[2]}
+                description={news["Description"].slice(0, 30) + '...'}
+                positive = {Math.round(news["Sentiment_Score"].split(' ')[0])}
+                negative = {Math.round(news["Sentiment_Score"].split(' ')[1])}
+                neutral={Math.round(news["Sentiment_Score"].split(' ')[2])}
                 url={news["URL"]}
               />
             ))}

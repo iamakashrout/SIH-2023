@@ -1,16 +1,6 @@
 import React from "react";
 import style from "../styles/card.module.css";
 import Image from "next/image";
-// import Crime from "../../publiccategories/images/crime.jpg"
-// import Culture from "../../public/categories/images/culture.jpg"
-// import Entertainment from "../../public/categories/images/entertainment.jpg"
-// import International from "../../public/categories/images/international.jpg"
-// import Judiciary from "../../public/categories/images/judiciary.jpg"
-// import Politics from "../../public/categories/images/politics3.jpg"
-// import Science from "../../public/categories/images/science.jpg"
-// import Sports from "../../public/categories/images/sports.jpg"
-// import Technology from "../../public/categories/images/technology.jpg"
-
 const card = (props: any) => {
   return (
     <div className="flex justify-center items-center hover:scale-[1.01] duration-300 hover:cursor-pointer">
@@ -44,9 +34,10 @@ const card = (props: any) => {
           </div>
         </div>
         <div className="flex justify-center items-center pt-3">
-          <button className="text-lg hover:underline hover:scale-[1.01] duration-300">
-            Read More
-          </button>
+          <a className="text-lg hover:underline hover:scale-[1.01] duration-300" target="_blank" 
+          href={props.URL}>
+          Read More
+          </a>
         </div>
       </div>
     </div>
