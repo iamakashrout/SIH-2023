@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/card";
+import Crime from "../../public/categories/images/crime.jpg"
+import Culture from "../../public/categories/images/culture.jpg"
+import Entertainment from "../../public/categories/images/entertainment.jpg"
+import International from "../../public/categories/images/international.jpg"
+import Judiciary from "../../public/categories/images/judiciary.jpg"
+import Politics from "../../public/categories/images/politics3.jpg"
+import Science from "../../public/categories/images/science.jpg"
+import Sports from "../../public/categories/images/sports.jpg"
+import Technology from "../../public/categories/images/technology.jpg"
+
 const latestPosts = () => {
   const [newsData, setNewsData] = useState([]);
   const apiUrl = "http://127.0.0.1:8000/";
@@ -28,13 +38,14 @@ const latestPosts = () => {
           <div className="grid grid-cols-3 gap-4">
             {newsData?.map((news) => (
               <Card
-                imgUrl={news["URL"]}
+                imgUrl={news["Categories"]}
                 Title={news["Title"]}
                 categories={news["Categories"]}
                 description={news["Description"]}
-                positive = {news["Sentimental"].split(' ')[0]}
-                negative = {news["Sentimental"].split(' ')[1]}
-                neutral = {news["Sentimental"].split(' ')[2]}
+                positive = {news["Sentiment_Score"].split(' ')[0]}
+                negative = {news["Sentiment_Score"].split(' ')[1]}
+                neutral={news["Sentiment_Score"].split(' ')[2]}
+                url={news["URL"]}
               />
             ))}
           </div>
