@@ -17,7 +17,36 @@ const latestPosts = () => {
     // Fetch data from the API
     fetch(apiUrl)
       .then((response) => response.json())
-      .then((data) => setNewsData(data["News"]))
+      .then((data) => {
+        setNewsData(data["News"]);
+        for (let i = 0; i < data["News"].length; i++){
+          const negative = parseFloat((data["News"][i]["Sentiment_Score"]).split(' ')[1]);
+          if (negative >= 0.5) {
+            fetch("https://email-kcr3.onrender.com/sendEmail", {
+     
+                // Adding method type
+                method: "POST",
+                
+                // Adding body or contents to send
+                body: JSON.stringify({
+                    title: data["News"][i]["Title"],
+                    url: data["News"][i]["URL"],
+                }),
+                
+                // Adding headers to the request
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+ 
+              // Converting to JSON
+              .then(response => response.json())
+              
+              // Displaying results to console
+              .then(json => console.log(json));
+     }
+}
+      })
       .catch((error) => console.error("Error fetching data: ", error));
   }, []); // The empty array means this effect runs once after initial render
 
