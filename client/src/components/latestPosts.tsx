@@ -44,8 +44,9 @@ const latestPosts = () => {
               
               // Displaying results to console
               .then(json => console.log(json));
-     }
-}
+          }
+        }
+    
       })
       .catch((error) => console.error("Error fetching data: ", error));
   }, []); // The empty array means this effect runs once after initial render
@@ -71,9 +72,9 @@ const latestPosts = () => {
                 Title={news["Title"]}
                 categories={news["Categories"]}
                 description={news["Description"].slice(0, 30) + '...'}
-                positive = {Math.round(news["Sentiment_Score"].split(' ')[0])}
-                negative = {Math.round(news["Sentiment_Score"].split(' ')[1])}
-                neutral={Math.round(news["Sentiment_Score"].split(' ')[2])}
+                negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
+                neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
                 url={news["URL"]}
               />
             ))}
