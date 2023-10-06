@@ -45,7 +45,7 @@ const header = () => {
             />
           </div>
           <div className="shrink w-80 sm:order-2">
-            <a className="font-bold uppercase text-[34px] libre">News Analysis</a>
+            <a className="font-bold uppercase text-[34px]">News Analysis</a>
           </div>
           <div className="w-96 order-3 flex justify-center items-center">
             <div className="flex gap-6">

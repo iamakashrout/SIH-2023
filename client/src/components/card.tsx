@@ -35,7 +35,7 @@ const card = (props: any) => {
         </div>
         <div className="flex justify-center items-center pt-3">
           <a className="text-lg underline hover:scale-[1.2] duration-300" target="_blank" 
-          href={props.URL}>
+          href={props.url}>
           Read More
           </a>
         </div>
