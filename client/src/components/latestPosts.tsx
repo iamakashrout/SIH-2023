@@ -9,6 +9,7 @@ import Politics from "../../public/categories/images/politics3.jpg"
 import Science from "../../public/categories/images/science.jpg"
 import Sports from "../../public/categories/images/sports.jpg"
 import Technology from "../../public/categories/images/technology.jpg"
+import Business from "../../public/categories/images/business.jpg"
 
 const latestPosts = () => {
   const [newsData, setNewsData] = useState([]);
@@ -68,13 +69,19 @@ const latestPosts = () => {
           <div className="grid grid-cols-3 gap-4">
             {newsData?.map((news) => (
               <Card
-                imgUrl={news["Categories"]}
-                Title={news["Title"]}
-                categories={news["Categories"]}
-                description={news["Description"].slice(0, 30) + '...'}
-                negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
-                neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
-                positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                 imgUrl={news["Categories"]}
+                // Title={news["Title"]}
+                Title={<span style={{fontWeight: 'bold' }}>{news["Title"]}</span>}
+                // categories={news["Categories"]}
+                categories={<span style={{  color: 'purple', fontWeight: 'bold' }}>{news["Categories"]}</span>}
+                description={<span>About- {news["Description"].slice(0, 30) + '...'}</span>}
+                // description={news["Description"].slice(0, 30) + '...'}
+                // negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
+                // neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                // positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                negative={<span style={{ textDecoration: 'underline' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}</span>}
+                neutral={<span style={{ textDecoration: 'underline' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
+                positive={<span style={{ textDecoration: 'underline' }}>{100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
                 url={news["URL"]}
               />
             ))}
