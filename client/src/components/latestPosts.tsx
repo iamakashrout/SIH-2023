@@ -52,6 +52,19 @@ const latestPosts = () => {
       .catch((error) => console.error("Error fetching data: ", error));
   }, []); // The empty array means this effect runs once after initial render
 
+  const newsMap = {
+    'Sports': 'Ministry of Youth Affairs and Sports',
+    'Culture': 'Ministry of Culture',
+    'International': 'Ministry of External Affairs',
+    'Politics': 'Ministry of Home Affairs',
+    'Science': 'Ministry of Science and Technology',
+    'Technology': 'Ministry of Electronics and Information Technology',
+    'Business': 'Ministry of Finance',
+    'Entertainment': 'Ministry of Information and Broadcasting',
+    'Judiciary': 'Ministry of Law and Justice',
+    'Crime': 'Department of Internal Security'
+  }
+
   return (
     <>
       {newsData?.length > 0 ? (
@@ -60,37 +73,73 @@ const latestPosts = () => {
             LATEST POSTS
           </div>
           <hr className="mb-3" />
-          {/* <div className="flex justify-center items-center space-x-8">
+          {
+            /*<div className="grid grid-cols-3 gap-4">
+              <Card
+                imgUrl="https://source.unsplash.com/NyA2B7xovMw"
+                Title={
+                  <span style={{ fontWeight: "bold" }}>
+                    Ministry of External Affairs News Headline
+                  </span>
+                }
+                categories={
+                  <span
+                    style={{
+                      backgroundColor: "#d3d3d3",
+                      color: "black",
+                      fontWeight: "bold",
+                      padding: "5px",
+                    }}
+                  >
+                    Ministry of Information and Broadcasting
+                  </span>
+                }
+                description={
+                  <span>
+                    About- abcabacaacjkflndle jsncolofd swidnflfm skfnolfns
+                    dfkf....
+                  </span>
+                }
+                negative={
+                  <span style={{ textDecoration: "underline", color: 'red' }}>
+                    7
+                  </span>
+                }
+                neutral={
+                  <span style={{ textDecoration: "underline", color: 'orange' }}>
+                    24
+                  </span>
+                }
+                positive={
+                  <span style={{ textDecoration: "underline", color: 'green' }}>
+                    69
+                  </span>
+                }
+                url='abc.com'
+              />
+            </div>*/
+          }
 
-        <Card imgUrl="https://source.unsplash.com/NyA2B7xovMw" />
-        <Card url="https://source.unsplash.com/2seMu5EqCDw" />
-        <Card url="https://source.unsplash.com/cHvT5F8cW50" />
-      </div> */}
-          <div className="grid grid-cols-3 gap-4">
+          {<div className="grid grid-cols-3 gap-4">
             {newsData?.map((news) => (
               <Card
-                 imgUrl={news["Categories"]}
+                imgUrl={news["Categories"]}
                 // Title={news["Title"]}
-                Title={<span style={{fontWeight: 'bold' }}>{news["Title"]}</span>}
+                Title={<span style={{ fontWeight: 'bold' }}>{news["Title"]}</span>}
                 // categories={news["Categories"]}
-                categories={<span style={{  color: 'purple', fontWeight: 'bold' }}>{news["Categories"]}</span>}
+                categories={<span style={{ backgroundColor: '#d3d3d3', color: 'black', fontWeight: 'bold', padding: '5px' }}>{newsMap[news["Categories"]]}</span>}
                 description={<span>About- {news["Description"].slice(0, 30) + '...'}</span>}
                 // description={news["Description"].slice(0, 30) + '...'}
                 // negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
                 // neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
                 // positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
-                negative={<span style={{ textDecoration: 'underline' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}</span>}
-                neutral={<span style={{ textDecoration: 'underline' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
-                positive={<span style={{ textDecoration: 'underline' }}>{100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
+                negative={<span style={{ textDecoration: 'underline', color: 'red' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}</span>}
+                neutral={<span style={{ textDecoration: 'underline', color: 'orange' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
+                positive={<span style={{ textDecoration: 'underline', color: 'green' }}>{100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
                 url={news["URL"]}
               />
             ))}
-          </div>
-          {/* <div className="flex justify-center items-center space-x-8">
-        <Card url="https://source.unsplash.com/KlxgXmqoTJ8" />
-        <Card url="https://source.unsplash.com/e4iPsCsMDrA" />
-        <Card url="https://source.unsplash.com/Mm8USYeFvt8" />
-      </div> */}
+            </div>}
         </>
       ) : (
         <>

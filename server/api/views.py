@@ -716,16 +716,16 @@ def AajTak():
     
 def index (request):
     print("The Session started")
-    # thread1 = threading.Thread(target=IndiaToday)
     # thread5 = threading.Thread(target=AajTak)
+    # thread1 = threading.Thread(target=IndiaToday)
     # thread6 = threading.Thread(target=News18Punj)
 
-    # Start the threads
+    # # Start the threads
     # thread1.start()
     # thread5.start()
     # thread6.start()
 
-    ## Wait for all threads to finish
+    # ## Wait for all threads to finish
     # thread1.join()
 
     # thread5.join()
