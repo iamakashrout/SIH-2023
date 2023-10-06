@@ -15,7 +15,7 @@ export default function Home() {
       <div className="mt-4 mb-4">
         <ImageGallery />
       </div>
-      <LatestPosts />
+     <LatestPosts />
     </>
   );
 }

@@ -13,6 +13,7 @@ const categories = () => {
         <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">TECHNOLOGY</a>
         <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">CULTURE</a>
         <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">INTERNATIONAL</a>
+        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">BUSINESS</a>
       </div>
     </>
   );
