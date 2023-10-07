@@ -3,17 +3,25 @@ import React from "react";
 const categories = () => {
   return (
     <>
-      <div className="flex justify-center items-center space-x-10 pt-3 font-bold bg-gray-50 pb-3">
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">ENTERTAINMENT</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">JUDICIARY</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">SCIENCE</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">CRIME</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">POLITICS</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">SPORTS</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">TECHNOLOGY</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">CULTURE</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">INTERNATIONAL</a>
-        <a className = "hover:cursor-pointer hover:scale-[1.02] duration-300" href="#">BUSINESS</a>
+      <div className="flex justify-center items-center space-x-20 pt-3 font-bold bg-gray-50 pb-3">
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">External Affairs
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Law and Justice
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Youth Affairs and Sports
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Finance
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Internal Security
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Culture
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Information and Broadcasting
+        </a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Home Affairs</a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Science and Technology</a>
+        <a className = "hover:cursor-pointer hover:scale-[1.2] duration-300" href="#">Electronics and Information Technology
+        </a>
       </div>
     </>
   );
