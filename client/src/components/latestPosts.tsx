@@ -143,12 +143,12 @@ const latestPosts = () => {
         </>
       ) : (
         <>
-          <div className="flex justify-center items-center text-3xl font-bold m-6 libre">
-            LATEST POSTS
+          <div className="flex justify-center items-center text-3xl font-bold m-6">
+            LATEST ARTICLES
           </div>
           <hr className="mb-3" />
           <div className="flex justify-center items-center text-2xl">
-            Latest Posts are Loading...
+            Loading the latest articles...
           </div>
           {/* <div className="flex justify-center items-center space-x-8">
             <Card imgUrl="https://source.unsplash.com/NyA2B7xovMw" />
