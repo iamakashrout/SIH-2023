@@ -30,7 +30,8 @@ const header = () => {
     <>
       <header className="bg-gray-50 py-1">
         <div className="xl:container xl:mx-auto flex items-center sm:flex-row sm:justify-between text-center py-3">
-        <div className="flex justify-center items-center -mr-10">
+          <img src="/Emblem_of_India.svg" width={40} height={40} alt="" />
+          <div className="flex justify-center items-center -mr-10">
             {minutes} : {seconds}
           </div>
           <div className="md:flex-none w-96 order-2 sm:order-1 flex items-center justify-center py-6 sm:py-0">
@@ -44,14 +45,25 @@ const header = () => {
               icon={faMagnifyingGlass}
             />
           </div>
-          <div className="shrink w-80 sm:order-2">
-            <a className="font-bold uppercase text-[34px]">News Analysis</a>
+          <div className="shrink w-80 sm:order-2 flex justify-center items-center">
+            <a className="font-bold uppercase text-[34px] libre">
+              News Analysis
+            </a>
           </div>
           <div className="w-96 order-3 flex justify-center items-center">
             <div className="flex gap-6">
-              ​​ <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">About</a>​
-              <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">Refresh</a>
-              <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
+              <div className="flex justify-center items-center space-x-12">
+                ​​{" "}
+                <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">
+                  About
+                </a>
+                ​
+                <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">
+                  Refresh
+                </a>
+              </div>
+              <img src="/G20.webp" width={90} height={90} alt="" />
+              {/* <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImFacebook color="#888888" />
               </a>
               <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
@@ -59,7 +71,7 @@ const header = () => {
               </a>
               <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImYoutube color="#888888" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
