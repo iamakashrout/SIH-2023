@@ -21,7 +21,7 @@ We've developed a smart system that automatically scrapes news from numerous sou
 
 ## Tech Stack Used
 - **AI**: PyTorch, TensorFlow, and BERT libraries for creating ML models.
-- **Crawling**: Beautiful Soup.
+- **Crawling**: Beautiful Soup, Selenium
 - **Server**: Django backend.
 - **Frontend**: Next.js and Tailwind CSS frontend.
 
