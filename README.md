@@ -1,15 +1,16 @@
 # SIH-2023
-## Smart India Hackathon 2023 <br>
-## Team Avengers <br>\
+## Smart India Hackathon 2023 
+## Team Avengers 
 ## Team Members- 
-Akash Rout
-Nandini Gera
-Sparsh Singh Bhatia
-Ujjawal Gupta
-Dhruv Goyal
-Ankur Gupta
+Akash Rout <br>
+Nandini Gera<br>
+Sparsh Singh Bhatia<br>
+Ujjawal Gupta<br>
+Dhruv Goyal<br>
+Ankur Gupta<br>
 
-# Project Name: Automated Crawling, Categorization and Sentiment Analysis of Digital News with Incorporated Feedback System. 
+# Project Name: 
+## Automated Crawling, Categorization and Sentiment Analysis of Digital News with Incorporated Feedback System. 
 
 ## Problem Statement- 1329
 The project addresses the need for a 360-degree feedback software for monitoring Government of India-related news stories in regional media using Artificial Intelligence and Machine Learning.
@@ -50,13 +51,15 @@ npm install
 3. Start the Next.js development server:
 
 ```terminal
-npm run dev```
+npm run dev
+```
 
 
 4. Install the necessary libraries and Start the Django backend server.
 
 ```terminal
- python manage.py runserver```
+ python manage.py runserver
+ ```
 
 ## Features
 - []
