@@ -60,13 +60,13 @@ npm run dev
  ```
 
 ## Approach Details
-• Crawled 12000+ news articles using Python Beautiful Soup Library.<br>
-• Applied clustering on these articles to label them into different categories to prepare labeled dataset.<br>
-• Trained this dataset of articles using DistilBERT model to generate department predictions. Accuracy - 73.27%<br>
-• Used Roberta model to implement sentiment analysis on news articles.<br>
-• Sending mail of Negative News to respective departments using NodeMailer and Gmail - SMTP<br>
-• Integrated this model and crawling functionality with a Django backend and wrote APIs for generating predictions and sentiments.<br>
-• Merged this backend with a simple and attractive UI where user can give triggers to load latest news articles with their analysis.<br>
+-Crawled 12000+ news articles using Python Beautiful Soup Library.<br>
+- Applied clustering on these articles to label them into different categories to prepare labeled dataset.<br>
+- Trained this dataset of articles using DistilBERT model to generate department predictions. Accuracy - 73.27%<br>
+- Used Roberta model to implement sentiment analysis on news articles.<br>
+- Sending mail of Negative News to respective departments using NodeMailer and Gmail - SMTP<br>
+- Integrated this model and crawling functionality with a Django backend and wrote APIs for generating predictions and sentiments.<br>
+- Merged this backend with a simple and attractive UI where user can give triggers to load latest news articles with their analysis.<br>
 
 
 ## Screenshots
