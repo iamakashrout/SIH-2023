@@ -4,8 +4,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useEffect } from "react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
 
 const header = () => {
+  const [selectedKeys, setSelectedKeys] = React.useState(
+    new Set(["Select Language"])
+  );
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+    [selectedKeys]
+  );
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
@@ -63,6 +78,27 @@ const header = () => {
                 </a>
               </div>
               <img src="/G20.webp" width={90} height={90} alt="" />
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button variant="bordered" className="capitalize">
+                    {selectedValue}
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Single selection example"
+                  variant="flat"
+                  disallowEmptySelection
+                  selectionMode="single"
+                  selectedKeys={selectedKeys}
+                  onSelectionChange={setSelectedKeys}
+                >
+                  <DropdownItem key="English">English</DropdownItem>
+                  <DropdownItem key="Hindi">Hindi</DropdownItem>
+                  <DropdownItem key="Bengali">Bengali</DropdownItem>
+                  <DropdownItem key="Telugu">Telugu</DropdownItem>
+                  <DropdownItem key="Chinese">Chinese</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
               {/* <a className="mt-1 hover:cursor-pointer hover:scale-[1.02] duration-300">
                 <ImFacebook color="#888888" />
               </a>
