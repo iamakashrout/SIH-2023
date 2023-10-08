@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/card";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
+import regional from "../../public/data/regional.json"
 import Crime from "../../public/categories/images/crime.jpg"
 import Culture from "../../public/categories/images/culture.jpg"
 import Entertainment from "../../public/categories/images/entertainment.jpg"
@@ -12,6 +20,14 @@ import Technology from "../../public/categories/images/technology.jpg"
 import Business from "../../public/categories/images/business.jpg"
 
 const latestPosts = () => {
+  const regionalNews = regional.News;
+  const [selectedKeys, setSelectedKeys] = useState(
+    new Set(["English"])
+);
+  const selectedValue = React.useMemo(
+    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+    [selectedKeys]
+  );
   const [newsData, setNewsData] = useState([]);
   const apiUrl = "http://127.0.0.1:8000/";
   useEffect(() => {
@@ -67,79 +83,170 @@ const latestPosts = () => {
 
   return (
     <>
+      <Dropdown>
+        <DropdownTrigger>
+          <Button variant="bordered" className="capitalize">
+            {selectedValue}
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          aria-label="Single selection example"
+          variant="flat"
+          disallowEmptySelection
+          selectionMode="single"
+          selectedKeys={selectedKeys}
+          onSelectionChange={setSelectedKeys}
+        >
+          <DropdownItem key="English">English</DropdownItem>
+          <DropdownItem key="Hindi">Hindi</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
       {newsData?.length > 0 ? (
         <>
           <div className="flex justify-center items-center text-3xl font-bold m-6 libre">
-            LATEST POSTS
+            LATEST ARTICLES
           </div>
           <hr className="mb-3" />
-          {
-            /*<div className="grid grid-cols-3 gap-4">
-              <Card
-                imgUrl="https://source.unsplash.com/NyA2B7xovMw"
-                Title={
-                  <span style={{ fontWeight: "bold" }}>
-                    Ministry of External Affairs News Headline
-                  </span>
-                }
-                categories={
-                  <span
-                    style={{
-                      backgroundColor: "#d3d3d3",
-                      color: "black",
-                      fontWeight: "bold",
-                      padding: "5px",
-                    }}
-                  >
-                    Ministry of Information and Broadcasting
-                  </span>
-                }
-                description={
-                  <span>
-                    About- abcabacaacjkflndle jsncolofd swidnflfm skfnolfns
-                    dfkf....
-                  </span>
-                }
-                negative={
-                  <span style={{ textDecoration: "underline", color: 'red' }}>
-                    7
-                  </span>
-                }
-                neutral={
-                  <span style={{ textDecoration: "underline", color: 'orange' }}>
-                    24
-                  </span>
-                }
-                positive={
-                  <span style={{ textDecoration: "underline", color: 'green' }}>
-                    69
-                  </span>
-                }
-                url='abc.com'
-              />
-            </div>*/
-          }
 
-          {<div className="grid grid-cols-3 gap-4">
-            {newsData?.map((news) => (
-              <Card
-                imgUrl={news["Categories"]}
-                // Title={news["Title"]}
-                Title={<span style={{ fontWeight: 'bold' }}>{news["Title"]}</span>}
-                // categories={news["Categories"]}
-                categories={<span style={{ backgroundColor: '#d3d3d3', color: 'black', fontWeight: 'bold', padding: '5px' }}>{newsMap[news["Categories"]]}</span>}
-                description={<span>About- {news["Description"].slice(0, 30) + '...'}</span>}
-                // description={news["Description"].slice(0, 30) + '...'}
-                // negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
-                // neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
-                // positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
-                negative={<span style={{ textDecoration: 'underline', color: 'red' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}</span>}
-                neutral={<span style={{ textDecoration: 'underline', color: 'orange' }}>{Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
-                positive={<span style={{ textDecoration: 'underline', color: 'green' }}>{100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}</span>}
-                url={news["URL"]}
-              />
-            ))}
-            </div>}
+          {selectedValue == 'English' ? (
+            <>
+              <div className="grid grid-cols-3 gap-4">
+              {newsData?.map((news) => (
+                <Card
+                  imgUrl={news["Categories"]}
+                  // Title={news["Title"]}
+                  Title={
+                    <span style={{ fontWeight: "bold" }}>{news["Title"]}</span>
+                  }
+                  // categories={news["Categories"]}
+                  categories={
+                    <span
+                      style={{
+                        backgroundColor: "#d3d3d3",
+                        color: "black",
+                        fontWeight: "bold",
+                        padding: "5px",
+                      }}
+                    >
+                      {newsMap[news["Categories"]]}
+                    </span>
+                  }
+                  description={
+                    <span>
+                      About- {news["Description"].slice(0, 30) + "..."}
+                    </span>
+                  }
+                  // description={news["Description"].slice(0, 30) + '...'}
+                  // negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
+                  // neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                  // positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                  negative={
+                    <span style={{ textDecoration: "underline", color: "red" }}>
+                      {Math.round(
+                        parseFloat(news["Sentiment_Score"].split(" ")[1]) * 100
+                      )}
+                    </span>
+                  }
+                  neutral={
+                    <span
+                      style={{ textDecoration: "underline", color: "orange" }}
+                    >
+                      {Math.round(
+                        parseFloat(news["Sentiment_Score"].split(" ")[2]) * 100
+                      )}
+                    </span>
+                  }
+                  positive={
+                    <span
+                      style={{ textDecoration: "underline", color: "green" }}
+                    >
+                      {100 -
+                        Math.round(
+                          parseFloat(news["Sentiment_Score"].split(" ")[1]) *
+                            100
+                        ) -
+                        Math.round(
+                          parseFloat(news["Sentiment_Score"].split(" ")[2]) *
+                            100
+                        )}
+                    </span>
+                  }
+                  url={news["URL"]}
+                />
+              ))}
+            </div>
+            </>
+          ) : (
+              <>
+              <div className="grid grid-cols-3 gap-4">
+              {regionalNews?.map((news) => (
+                <Card
+                  imgUrl={news["Categories"]}
+                  // Title={news["Title"]}
+                  Title={
+                    <span style={{ fontWeight: "bold" }}>{news["Title"]}</span>
+                  }
+                  // categories={news["Categories"]}
+                  categories={
+                    <span
+                      style={{
+                        backgroundColor: "#d3d3d3",
+                        color: "black",
+                        fontWeight: "bold",
+                        padding: "5px",
+                      }}
+                    >
+                      {newsMap[news["Categories"]]}
+                    </span>
+                  }
+                  description={
+                    <span>
+                      About- {news["Description"].slice(0, 30) + "..."}
+                    </span>
+                  }
+                  // description={news["Description"].slice(0, 30) + '...'}
+                  // negative={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100)}
+                  // neutral={Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                  // positive={100 - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[1]) * 100) - Math.round(parseFloat(news["Sentiment_Score"].split(' ')[2]) * 100)}
+                  negative={
+                    <span style={{ textDecoration: "underline", color: "red" }}>
+                      {Math.round(
+                        parseFloat(news["Sentiment_Score"].split(" ")[1]) * 100
+                      )}
+                    </span>
+                  }
+                  neutral={
+                    <span
+                      style={{ textDecoration: "underline", color: "orange" }}
+                    >
+                      {Math.round(
+                        parseFloat(news["Sentiment_Score"].split(" ")[2]) * 100
+                      )}
+                    </span>
+                  }
+                  positive={
+                    <span
+                      style={{ textDecoration: "underline", color: "green" }}
+                    >
+                      {100 -
+                        Math.round(
+                          parseFloat(news["Sentiment_Score"].split(" ")[1]) *
+                            100
+                        ) -
+                        Math.round(
+                          parseFloat(news["Sentiment_Score"].split(" ")[2]) *
+                            100
+                        )}
+                    </span>
+                  }
+                  url={news["URL"]}
+                />
+              ))}
+            </div>
+            </>
+          )
+            
+          }
         </>
       ) : (
         <>
