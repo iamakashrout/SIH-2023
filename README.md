@@ -16,10 +16,8 @@ Ankur Gupta<br>
 The project addresses the need for a 360-degree feedback software for monitoring Government of India-related news stories in regional media using Artificial Intelligence and Machine Learning.
 
 ## Solution Proposed
-We created a smart system capable of automatically scraping news from various websites, specifically looking for news stories related to the Government of India. The system sorts these stories into categories and assesses their sentiment as positive, neutral, or negative. In the event of negative news, alerts are sent to the respective government department. This system keeps the government updated with news events, allowing for quick responses when necessary.
+We've developed a smart system that automatically scrapes news from numerous sources across the internet including text articles as well as video news. After fetching these articles, these are then classified into categories of which ministry’s jurisdiction they come under followed by their sentiment analysis as positive, neutral, or negative scores are assigned to each news article fetched. If negative news is detected, alerts are sent to the respective government department through their concerned email address. This system keeps the government updated with news events and allows for quick responses when needed. The news are then displayed on a visually appealing and easy to use user-friendly interface where user can refresh and load the latest news when required. If not refreshed manually, the news is automatically refreshed after every hour. 
 
-## What We've Created
-Our product is a user-friendly platform featuring a single-click solution. It includes a web crawler to fetch the latest news, machine learning models for article categorization and sentiment analysis, and a curated news feed with positivity scores and source information. It also sends email alerts for negative news to the concerned department.
 
 ## Tech Stack Used
 - **AI**: PyTorch, TensorFlow, and BERT libraries for creating ML models.
@@ -33,11 +31,11 @@ To run the project locally:
 1. Clone the repository:
 
 ```terminal
-git clone https://github.com/fineanmol/Hacktoberfest2022.git
+git clone https://github.com/iamakashrout/SIH-2023.git
 ```
 - Navigate to project directory.
 ```terminal
-cd Hacktoberfest2022
+cd SIH-2023
 ```
 
 2. Install dependencies for the client (Next.js):
@@ -61,13 +59,23 @@ npm run dev
  python manage.py runserver
  ```
 
-## Features
-- []
-- []
-- []
-- []
+## Approach Details
+• Crawled 12000+ news articles using Python Beautiful Soup Library.
+• Applied clustering on these articles to label them into different categories to prepare labeled dataset.
+• Trained this dataset of articles using DistilBERT model to generate department predictions. Accuracy - 73.27%
+• Used Roberta model to implement sentiment analysis on news articles.
+• Sending mail of Negative News to respective departments using NodeMailer and Gmail - SMTP
+• Integrated this model and crawling functionality with a Django backend and wrote APIs for generating predictions and sentiments.
+• Merged this backend with a simple and attractive UI where user can give triggers to load latest news articles with their analysis.
+
 
 ## Screenshots
-(Space for adding screenshots)
+
+## Abstract Link 
+
+## Description Link
+
+## Youtube Link 
+
 
 
