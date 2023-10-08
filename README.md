@@ -31,25 +31,32 @@ To run the project locally:
 
 1. Clone the repository:
 
-|| git clone [repository_url]
-cd [project_directory] ||
-
+```terminal
+git clone https://github.com/fineanmol/Hacktoberfest2022.git
+```
+- Navigate to project directory.
+```terminal
+cd Hacktoberfest2022
+```
 
 2. Install dependencies for the client (Next.js):
 
-||cd client
-npm install ||
+```terminal
+cd client
+npm install
+```
 
 
 3. Start the Next.js development server:
 
-||npm run dev ||
+```terminal
+npm run dev```
 
 
 4. Install the necessary libraries and Start the Django backend server.
 
-|| python manage.py runserver ||
-
+```terminal
+ python manage.py runserver```
 
 ## Features
 - []
