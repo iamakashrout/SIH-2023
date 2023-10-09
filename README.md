@@ -74,13 +74,13 @@ npm run dev
 ![Frontend](Frontend_B.png) <br>
 ![Frontend](Frontend_C.png) <br>
 
-## Project Links <br> 
+## Project Links  
 
-[Abstract Link](https://docs.google.com/document/d/16uxjx-_B8r9y3Muj9UF9Te59mdxYftoAy0u3LZxXm_k/edit?usp=sharing) || 
+[- Abstract Link](https://docs.google.com/document/d/16uxjx-_B8r9y3Muj9UF9Te59mdxYftoAy0u3LZxXm_k/edit?usp=sharing)  
 
-[Description Link](https://docs.google.com/document/d/1WMexh_AJeoZyrdAbfSyy_lZgD4aRq_PiRC7nJ6Ir4EE/edit?usp=sharing) || 
+[- Description Link](https://docs.google.com/document/d/1WMexh_AJeoZyrdAbfSyy_lZgD4aRq_PiRC7nJ6Ir4EE/edit?usp=sharing) 
 
-[Youtube Link](https://www.youtube.com/watch?v=9pKg_C6C43E) 
+[- Youtube Link](https://www.youtube.com/watch?v=9pKg_C6C43E) 
 
 
 
