@@ -24,18 +24,18 @@ const card = (props: any) => {
         </div>
         <div className="flex justify-center items-center space-x-4">
           <div className="flex flex-col justify-center items-center">
-            Positive %<div>{props.positive}%</div>
+            Positive <div>{props.positive}%</div>
           </div>
           <div className="flex flex-col justify-center items-center">
-            Neutral %<div>{props.neutral}%</div>
+            Negative <div>{props.negative}%</div>
           </div>
           <div className="flex flex-col justify-center items-center">
-            Negative %<div>{props.negative}%</div>
+            Neutral <div>{props.neutral}%</div>
           </div>
         </div>
         <div className="flex justify-center items-center pt-3">
-          <a className="text-lg underline hover:scale-[1.2] duration-300" target="_blank" 
-          href={props.url}>
+          <a className="text-lg hover:underline hover:scale-[1.01] duration-300" target="_blank" 
+          href={props.URL}>
           Read More
           </a>
         </div>
