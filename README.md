@@ -53,7 +53,7 @@ npm run dev
 ```
 
 
-4. Install the necessary libraries and Paste the contents from [here](https://drive.google.com/drive/folders/1ow2Xq4amZnBRtGIQUN-cP-VXTFRaT6ox?usp=sharing) into the server folder. 
+<!-- 4. Install the necessary libraries and Paste the contents from [here](https://drive.google.com/drive/folders/1ow2Xq4amZnBRtGIQUN-cP-VXTFRaT6ox?usp=sharing) into the server folder.  -->
 
 5. Start the Django backend server.
 
