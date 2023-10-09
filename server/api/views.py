@@ -4,6 +4,10 @@ import json
 import csv
 import requests
 from bs4 import BeautifulSoup
+import subprocess
+from api import Aajtak_Video
+from api import IndianExpress_Video
+from api import ZeeNews_Video
 import threading
 import time
 import xlsxwriter
@@ -41,11 +45,15 @@ ssl._create_default_https_context = ssl._create_unverified_context
 tokenizer = AutoTokenizer.from_pretrained("tokenizer_roberta/sentiment_tokenizer/")
 model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment/")
 labels=[]
-mapping_link = f"https://raw.githubusercontent.com/cardiffnlp/tweeteval/main/datasets/sentiment/mapping.txt"
-with urllib.request.urlopen(mapping_link) as f:
-    html = f.read().decode('utf-8').split("\n")
-    csvreader = csv.reader(html, delimiter='\t')
-labels = [row[1] for row in csvreader if len(row)>1]
+# mapping_link = f"https://raw.githubusercontent.com/cardiffnlp/tweeteval/main/datasets/sentiment/mapping.txt"
+# with urllib.request.urlopen(mapping_link,timeout=120) as f:
+#     html = f.read().decode('utf-8').split("\n")
+#     csvreader = csv.reader(html, delimiter='\t')
+mapping_file_path = "mapping.txt"
+
+with open(mapping_file_path, 'r', encoding='utf-8') as file:
+    csvreader = csv.reader(file, delimiter='\t')
+    labels = [row[1] for row in csvreader if len(row)>1]
 
 def sentiment(row):
     text = row[:1500]
@@ -149,7 +157,11 @@ def preprocess(series):
     return series
 
 def PreProcessTheData():
-    df = pd.read_excel("IndiaToday.xlsx")
+    df = pd.read_excel("AajTak.xlsx")
+    def translate(row):
+        result=GoogleTranslator(source='auto', target='en').translate(row[:2200])
+        return result
+    df.Body=df.Body.apply(lambda x: translate(x))
     def remove_edited(row):
         index_of_edited_by = row.find("Edited By: ")
 
@@ -163,25 +175,29 @@ def PreProcessTheData():
     df = df[~df['Heading'].str.contains('horoscope', case=False)]
     df.Body = preprocess(df.Body)
     df = df.dropna()
-    # df2 = pd.read_excel("IndiaTv.xlsx")
+    # df2 = pd.read_excel("AajTak_Video.xlsx")
     # df2 = df2[~df2['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    # df2 = df2.loc[~(df2.Heading.str.contains("Aaj Ki Baat") | df2.Heading.str.contains("Horoscope")\
-    #             | df2.Heading.str.contains("Aap Ki Adalat"))]
+    # df2 = df2.loc[~(df2['Heading'].str.contains("Aaj Ki Baat") | df2['Heading'].str.contains("Horoscope")
+    #             | df2['Heading'].str.contains("Aap Ki Adalat"))]
     
     # df2 = df2[~df2['Heading'].str.contains('horoscope', case=False)]
+
     # df2.Body = preprocess(df2.Body)
     # df2 = df2.dropna()
-    # df3 = pd.read_excel("News18.xlsx")
+    # df3 = pd.read_excel("IndianExpress_Video.xlsx")
     # df3 = df3[~df3['Body'].apply(lambda x: isinstance(x, (float, int)))]
     # df3 = df3[~df3['Heading'].str.contains('horoscope', case=False)]
     # df3.Body = preprocess(df3.Body)
     # df3 = df3.dropna()
-    # df4 = pd.read_excel("ThePrint.xlsx")
+ 
+    # df4 = pd.read_excel("ZeeNews_Video.xlsx")
     # df4 = df4[~df4['Body'].apply(lambda x: isinstance(x, (float, int)))]
     # df4 = df4[~(df4['Body'].str.contains('dear subscriber', case=False))]
     # df4 = df4[~df4['Heading'].str.contains('horoscope', case=False)]
     # df4.Body = preprocess(df4.Body)
+    
     # df4 = df4.dropna()
+    
     # df5 = pd.read_excel("News18_Punjab.xlsx")
     # df5 = df5[~df5['Body'].apply(lambda x: isinstance(x, (float, int)))]
     # df5 = df5[~(df5['Body'].str.contains('dear subscriber', case=False))]
@@ -194,9 +210,10 @@ def PreProcessTheData():
     # df6 = df6[~df6['Heading'].str.contains('horoscope', case=False)]
     # df6.Body = preprocess(df6.Body)
     # df6 = df6.dropna()
-    df7 = pd.concat([df], ignore_index=True, axis=0)
+    df7 = pd.concat([df], ignore_index=True, axis=0, join='outer')
     df7["Cat"]=df7["Body"].apply(lambda x:classification(str(x)))
     df7["Sentiment"] = df7.Body.apply(lambda x: sentiment(str(x)))
+    df7["HindiBody"]=df.HindiBody
     df7.shape
     file_name = "Final_Prepped_Data.xlsx"
     df7.to_excel(file_name, index=False)
@@ -712,20 +729,314 @@ def AajTak():
     finally:
         print("Aaj Tak Ended")
         workbook.close()
+    
+
+def AajtakVideo():
+    workbook=xlsxwriter.Workbook('AajTak_Video.xlsx')
+    worksheet=workbook.add_worksheet()
+    row=0
+    column=0
+    worksheet.write(row,column,"Heading")
+    worksheet.write(row,column+1,"VideoText")
+    worksheet.write(row,column+2,"Body")
+    worksheet.write(row,column+3,"URL")
+    row+=1
+
+
+    # def fetch_html(url):
+    #     try:
+    #         headers = {
+    #             'User-Agent': 'Mozilla/5.0',
+    #         }
+    #         response = requests.get(url, headers=headers)
+    #         if response.status_code == 200:
+    #             return response.text
+    #         else:
+    #             print(
+    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
+    #             return None
+    #     except Exception as e:
+    #         print(f"An error occurred while fetching {url}: {str(e)}")
+    #         return None
+
+
+    # def extract_video_links(html_content):
+    #     video_links = set()  # Use a set to store unique links
+    #     soup = BeautifulSoup(html_content, 'html.parser')
+    #     # Find 'a' tags with 'href' attribute
+    #     video_tags = soup.find_all('a', href=True)
+
+    #     for tag in video_tags:
+    #         video_url = tag['href']
+    #         if video_url and video_url.startswith('https://www.aajtak'):
+    #             video_links.add(video_url)
+
+    #     return list(video_links)
+
+
+    # def crawl_website(url, max_links):
+    #     visited_links = set()
+    #     to_visit = [url]
+    #     all_video_links = set()
+
+    #     while to_visit and len(all_video_links) < max_links:
+    #         current_url = to_visit.pop(0)
+    #         if current_url not in visited_links:
+    #             html_content = fetch_html(current_url)
+    #             if html_content:
+    #                 video_links = extract_video_links(html_content)
+    #                 with open('./aajtak_link.csv', 'a') as f:
+    #                     for link in video_links:
+    #                         if "/video/" in link and link not in all_video_links and len(link) > 60:
+    #                             f.write(link + '\n')
+    #                             all_video_links.add(link)
+
+    #                 visited_links.add(current_url)
+    #                 to_visit.extend(video_links)
+
+
+    # news_websites = [
+    #     'https://www.aajtak.in/videos'
+    # ]
+
+    # for website in news_websites:
+    #     crawl_website(website, max_links=100)
+
+    # print("Crawling completed.")
+
+    csv_file_path = './aajtak_link.csv'
+
+    with open(csv_file_path, 'r') as csv_file:
+        video_links = csv.reader(csv_file)
+        for r in video_links:
+            video_url = r[0]
+
+            try:
+                title,video_text,description,url=Aajtak_Video.aajtak(video_url)
+                worksheet.write(row,column,title)
+                worksheet.write(row,column+1,video_text)
+                worksheet.write(row,column+2,description)
+                worksheet.write(row,column+3,url)
+                print(title,video_text,url)
+                row+=1
+            except Exception as e:
+                print(f"Error processing video URL {video_url}: {str(e)}")
+
+    workbook.close()
+    print("AajtakVieos done")
+    
+    
+def IndianExpressVideo():
+    workbook=xlsxwriter.Workbook('IndianExpress_Video.xlsx')
+    worksheet=workbook.add_worksheet()
+    row=0
+    column=0
+    worksheet.write(row,column,"Heading")
+    worksheet.write(row,column+1,"VideoText")
+    worksheet.write(row,column+2,"Body")
+    worksheet.write(row,column+3,"URL")
+    row+=1
+
+
+    # def fetch_html(url):
+    #     try:
+    #         response = requests.get(url)
+    #         if response.status_code == 200:
+    #             return response.text
+    #         else:
+    #             print(
+    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
+    #             return None
+    #     except Exception as e:
+    #         print(f"An error occurred while fetching {url}: {str(e)}")
+    #         return None
+
+
+    # def extract_video_links(html_content):
+    #     video_links = set()  # Use a set to store unique links
+    #     soup = BeautifulSoup(html_content, 'html.parser')
+    #     # Find 'a' tags with 'href' attribute
+    #     video_tags = soup.find_all('a', href=True)
+
+    #     for tag in video_tags:
+    #         video_url = tag['href']
+    #         if video_url.startswith('https://indianexpress'):
+    #             video_links.add(video_url)
+
+    #     return list(video_links)
+
+
+    # def crawl_website(url, max_links):
+    #     visited_links = set()
+    #     to_visit = [url]
+    #     all_video_links = set()
+
+    #     while to_visit and len(all_video_links) < max_links:
+    #         current_url = to_visit.pop(0)
+    #         if current_url not in visited_links:
+    #             html_content = fetch_html(current_url)
+    #             if html_content:
+    #                 video_links = extract_video_links(html_content)
+                
+    #                 with open('./indianexpress_link.csv', 'a') as f:
+    #                     for link in video_links:
+    #                         if "/videos/" in link and link not in all_video_links and len(link) > 60:
+    #                             f.write(link + '\n')
+    #                             all_video_links.add(link)
+
+    #                 visited_links.add(current_url)
+    #                 # Add found video links to the queue
+    #                 to_visit.extend(video_links)
+
+
+    # # List of news websites to crawl
+    # news_websites = [
+    #     'https://indianexpress.com/'
+    # ]
+
+    # for website in news_websites:
+    #     crawl_website(website, max_links=1)
+
+    # print("Crawling completed.")
+
+
+    csv_file_path = './indianexpress_link.csv'
+
+    with open(csv_file_path, 'r') as csv_file:
+        video_links = csv.reader(csv_file)
+        for r in video_links:
+            if len(r) == 0:
+                continue
+            video_url = r[0]
+            # print(main_func(video_url))
+            try:
+                title,video_text,description,url=IndianExpress_Video.indianexpress(video_url)
+                worksheet.write(row,column,title)
+                worksheet.write(row,column+1,video_text)
+                worksheet.write(row,column+2,description)
+                worksheet.write(row,column+3,url)
+                print(title,video_text,url)
+                row+=1
+            except Exception as e:
+                print(f"Error processing video URL {video_url}: {str(e)}")
+
+    workbook.close()
+
+    print("IndianExpressDone")
+
+def ZeeNewsVideos():
+    workbook=xlsxwriter.Workbook('ZeeNews_Video.xlsx')
+    worksheet=workbook.add_worksheet()
+    row=0
+    column=0
+    worksheet.write(row,column,"Heading")
+    worksheet.write(row,column+1,"VideoText")
+    worksheet.write(row,column+2,"Body")
+    worksheet.write(row,column+3,"URL")
+    row+=1
+
+
+    # def fetch_html(url):
+    #     try:
+    #         headers = {
+    #             'User-Agent': 'Mozilla/5.0',
+    #         }
+    #         response = requests.get(url, headers=headers)
+    #         if response.status_code == 200:
+    #             return response.text
+    #         else:
+    #             print(
+    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
+    #             return None
+    #     except Exception as e:
+    #         print(f"An error occurred while fetching {url}: {str(e)}")
+    #         return None
+
+
+    # def extract_video_links(html_content):
+    #     video_links = set()  # Use a set to store unique links
+    #     soup = BeautifulSoup(html_content, 'html.parser')
+    #     # Find 'a' tags with 'href' attribute
+    #     video_tags = soup.find_all('a', href=True)
+
+    #     for tag in video_tags:
+    #         video_url = tag['href']
+    #         if video_url and not video_url.startswith('http'):
+    #             video_url = 'https://zeenews.india.com' + video_url
+    #             video_links.add(video_url)
+
+    #     return list(video_links)
+
+
+    # def crawl_website(url, max_links):
+    #     visited_links = set()
+    #     to_visit = [url]
+    #     all_video_links = set()
+
+    #     while to_visit and len(all_video_links) < max_links:
+    #         current_url = to_visit.pop(0)
+    #         if current_url not in visited_links:
+    #             html_content = fetch_html(current_url)
+    #             if html_content:
+    #                 video_links = extract_video_links(html_content)
+    #                 with open('zeenews_link.csv', 'a') as f:
+    #                     for link in video_links:
+    #                         if "com/video/" in link and link not in all_video_links and len(link) > 60:
+    #                             f.write(link + '\n')
+    #                             all_video_links.add(link)
+
+    #                 visited_links.add(current_url)
+    #                 # Add found video links to the queue
+    #                 to_visit.extend(video_links)
+
+
+    # # List of news websites to crawl
+    # news_websites = [
+    #     'https://zeenews.india.com/videos'
+    # ]
+
+    # for website in news_websites:
+    #     crawl_website(website, max_links=10)
+
+    # print("Crawling completed.")
+
+    csv_file_path = './zeenews_link.csv'
+
+    with open(csv_file_path, 'r') as csv_file:
+        video_links = csv.reader(csv_file)
+        for r in video_links:
+            if len(r) == 0:
+                continue
+            video_url = r[0]
+            try:
+                title,video_text,description,url=ZeeNews_Video.zeenews(video_url)
+                worksheet.write(row,column,title)
+                worksheet.write(row,column+1,video_text)
+                worksheet.write(row,column+2,description)
+                worksheet.write(row,column+3,url)
+                print(title,video_text,url)
+                row+=1
+            except Exception as e:
+                print(f"Error processing video URL {video_url}: {str(e)}")
+
+    workbook.close()
+    print("ZeeNews Done")
+
+
 
     
 def index (request):
     print("The Session started")
-    # thread5 = threading.Thread(target=AajTak)
-    # thread1 = threading.Thread(target=IndiaToday)
-    # thread6 = threading.Thread(target=News18Punj)
+    # thread1 = threading.Thread(target=AajtakVideo)
+    # thread5 = threading.Thread(target=IndianExpressVideo)
+    # thread6 = threading.Thread(target=ZeeNewsVideos)
 
     # # Start the threads
     # thread1.start()
     # thread5.start()
     # thread6.start()
 
-    # ## Wait for all threads to finish
+    # # Wait for all threads to finish
     # thread1.join()
 
     # thread5.join()
@@ -734,10 +1045,12 @@ def index (request):
     PreProcessTheData()
     news=[]
     df=pd.read_excel("Final_Prepped_Data.xlsx")
+    # df["VideoText"]=df["VideoText"].fillna("")
     for ind in df.index:
         row={}
         row["Title"]=df["Heading"][ind]
-        row["Description"]=df["Body"][ind]
+        row["Description"]=df["HindiBody"][ind]
+        row["VideoText"]=""
         row["URL"]=df["URL"][ind]
         row["Categories"]=df["Cat"][ind]
         row["Sentiment_Score"]=df["Sentiment"][ind]
@@ -746,6 +1059,6 @@ def index (request):
     print("PreProcessing Done")
     print("Session Ended")
     
+
     
-    
-    return JsonResponse({"result":"success", "News":news})
+    return JsonResponse({"result":"success", "News":news}, safe=False, json_dumps_params={'ensure_ascii': False})
