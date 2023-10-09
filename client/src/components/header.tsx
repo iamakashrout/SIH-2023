@@ -47,7 +47,7 @@ const header = () => {
             />
           </div>
           <div className="shrink w-80 sm:order-2 flex justify-center items-center">
-            <a className="font-bold uppercase text-[34px] libre">
+            <a className="font-bold uppercase text-[34px]">
               News Analysis
             </a>
           </div>
@@ -59,7 +59,7 @@ const header = () => {
                   About
                 </a>
                 ​
-                <a className="hover:cursor-pointer hover:scale-[1.02] duration-300">
+                <a href="/" className="hover:cursor-pointer hover:scale-[1.02] duration-300">
                   Refresh
                 </a>
               </div>

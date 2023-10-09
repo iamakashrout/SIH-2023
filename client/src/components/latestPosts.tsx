@@ -83,16 +83,16 @@ const latestPosts = () => {
       {newsData?.length > 0 ? (
         <>
           <div className="flex justify-center items-center">
-            <div className="flex justify-center items-center text-3xl font-bold m-6 libre">
+            <div className="flex justify-center items-center text-3xl font-bold m-6">
               LATEST ARTICLES IN 
             </div>
             <div>
               <Dropdown>
                 <DropdownTrigger>
                   <Button variant="bordered" className="capitalize">
-                    <div className="flex uppercase justify-center items-center text-3xl font-bold -ml-2 libre">
+                    <div className="flex uppercase justify-center items-center text-3xl font-bold -ml-2">
                     {selectedValue}
-                    <img src="dropdown.png" className="ml-1" width={20} height = {20} alt="" />
+                    <img src="/dropdown.png" className="ml-1" width={20} height = {20} alt="" />
                     </div>
                   </Button>
                 </DropdownTrigger>
