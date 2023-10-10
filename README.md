@@ -52,11 +52,12 @@ npm install
 npm run dev
 ```
 
+4. Install the necessary libraries and Paste the contents from [here](https://drive.google.com/drive/folders/1ow2Xq4amZnBRtGIQUN-cP-VXTFRaT6ox?usp=sharing) into the server folder. 
 
-4. Install the necessary libraries and Start the Django backend server.
+5. Start the Django backend server.
 
 ```terminal
- python manage.py runserver
+python manage.py runserver
  ```
 
 ## Approach Details
@@ -67,15 +68,25 @@ npm run dev
 - Sending mail of Negative News to respective departments using NodeMailer and Gmail - SMTP<br>
 - Integrated this model and crawling functionality with a Django backend and wrote APIs for generating predictions and sentiments.<br>
 - Merged this backend with a simple and attractive UI where user can give triggers to load latest news articles with their analysis.<br>
+- Implemented video news analysis using Selenium library by first extracting audio and converting it into text. Then applied classification and sentiment analysis on the extracted text. <br>
+- Developed the same functionalities for news in Hindi and others languages as well using Google Translate API. <br>
 
 
 ## Screenshots
+![Frontend](Frontend_A.png) <br>
+![Frontend](Frontend_B.png) <br>
+![Frontend](Frontend_C.png) <br>
 
-## Abstract Link 
+[Screenshot Link](https://www.canva.com/design/DAFwxcZCMK8/pz5Z4bYMwfMgdxuzhGVv0g/edit)
 
-## Description Link
 
-## Youtube Link 
+## Project Links  
+
+[- Abstract Link](https://docs.google.com/document/d/16uxjx-_B8r9y3Muj9UF9Te59mdxYftoAy0u3LZxXm_k/edit?usp=sharing)  
+
+[- Description Link](https://docs.google.com/document/d/1WMexh_AJeoZyrdAbfSyy_lZgD4aRq_PiRC7nJ6Ir4EE/edit?usp=sharing) 
+
+[- Youtube Link](https://www.youtube.com/watch?v=9pKg_C6C43E) 
 
 
 
