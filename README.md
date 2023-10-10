@@ -16,7 +16,7 @@ Ankur Gupta<br>
 The project addresses the need for a 360-degree feedback software for monitoring Government of India-related news stories in regional media using Artificial Intelligence and Machine Learning.
 
 ## Solution Proposed
-We've developed a smart system that automatically scrapes news from numerous sources across the internet including text articles as well as video news. After fetching these articles, these are then classified into categories of which ministry’s jurisdiction they come under followed by their sentiment analysis as positive, neutral, or negative scores are assigned to each news article fetched. If negative news is detected, alerts are sent to the respective government department through their concerned email address. This system keeps the government updated with news events and allows for quick responses when needed. The news are then displayed on a visually appealing and easy to use user-friendly interface where user can refresh and load the latest news when required. If not refreshed manually, the news is automatically refreshed after every hour. 
+We've developed a smart system that automatically scrapes news from numerous sources across the internet including text articles as well as video news. After fetching these articles, these are then classified into categories of which ministry’s jurisdiction they come under followed by their sentiment analysis as positive, neutral, or negative scores are assigned to each news article fetched. If negative news is detected, alerts are sent to the respective government department through their concerned email address. This system keeps the government updated with news events and allows for quick responses when needed. The news are then displayed on a visually appealing and easy to use user-friendly interface where user can refresh and load the latest news when required. If not refreshed manually, the news is automatically refreshed after every hour. Option to fetch news articles in Engish, Hindi and multiple regional languages has been provided.
 
 
 ## Tech Stack Used
@@ -74,19 +74,21 @@ python manage.py runserver
 
 ## Screenshots
 ![Frontend](Frontend_A.png) <br>
+<br>
 ![Frontend](Frontend_B.png) <br>
+<br>
 ![Frontend](Frontend_C.png) <br>
 
-[Screenshot Link](https://www.canva.com/design/DAFwxcZCMK8/pz5Z4bYMwfMgdxuzhGVv0g/edit)
+[Screenshots Link](https://www.canva.com/design/DAFwxcZCMK8/pz5Z4bYMwfMgdxuzhGVv0g/edit)
 
 
 ## Project Links  
 
-[- Abstract Link](https://docs.google.com/document/d/16uxjx-_B8r9y3Muj9UF9Te59mdxYftoAy0u3LZxXm_k/edit?usp=sharing)  
+[- Abstract](https://docs.google.com/document/d/16uxjx-_B8r9y3Muj9UF9Te59mdxYftoAy0u3LZxXm_k/edit?usp=sharing)  
 
-[- Description Link](https://docs.google.com/document/d/1WMexh_AJeoZyrdAbfSyy_lZgD4aRq_PiRC7nJ6Ir4EE/edit?usp=sharing) 
+[- Description](https://docs.google.com/document/d/1WMexh_AJeoZyrdAbfSyy_lZgD4aRq_PiRC7nJ6Ir4EE/edit?usp=sharing) 
 
-[- Youtube Link](https://www.youtube.com/watch?v=9pKg_C6C43E) 
+[- Youtube Demo](https://www.youtube.com/watch?v=9pKg_C6C43E) 
 
 
 
