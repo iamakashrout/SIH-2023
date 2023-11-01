@@ -194,18 +194,18 @@ def PreProcessTheData():
     
     df4 = df4.dropna()
     
-    # df5 = pd.read_excel("News18_Punjab.xlsx")
-    # df5 = df5[~df5['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    # df5 = df5[~(df5['Body'].str.contains('dear subscriber', case=False))]
-    # df5 = df5[~df5['Heading'].str.contains('horoscope', case=False)]
-    # df5.Body = preprocess(df5.Body)
-    # df5 = df5.dropna()
-    # df6 = pd.read_excel("AajTak.xlsx")
-    # df6 = df6[~df6['Body'].apply(lambda x: isinstance(x, (float, int)))]
-    # df6 = df6[~(df6['Body'].str.contains('dear subscriber', case=False))]
-    # df6 = df6[~df6['Heading'].str.contains('horoscope', case=False)]
-    # df6.Body = preprocess(df6.Body)
-    # df6 = df6.dropna()
+    df5 = pd.read_excel("News18_Punjab.xlsx")
+    df5 = df5[~df5['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    df5 = df5[~(df5['Body'].str.contains('dear subscriber', case=False))]
+    df5 = df5[~df5['Heading'].str.contains('horoscope', case=False)]
+    df5.Body = preprocess(df5.Body)
+    df5 = df5.dropna()
+    df6 = pd.read_excel("AajTak.xlsx")
+    df6 = df6[~df6['Body'].apply(lambda x: isinstance(x, (float, int)))]
+    df6 = df6[~(df6['Body'].str.contains('dear subscriber', case=False))]
+    df6 = df6[~df6['Heading'].str.contains('horoscope', case=False)]
+    df6.Body = preprocess(df6.Body)
+    df6 = df6.dropna()
     df7 = pd.concat([df,df2,df3,df4], ignore_index=True, axis=0, join='outer')
     df7["Cat"]=df7["Body"].apply(lambda x:classification(str(x)))
     df7["Sentiment"] = df7.Body.apply(lambda x: sentiment(str(x)))
@@ -738,66 +738,66 @@ def AajtakVideo():
     row+=1
 
 
-    # def fetch_html(url):
-    #     try:
-    #         headers = {
-    #             'User-Agent': 'Mozilla/5.0',
-    #         }
-    #         response = requests.get(url, headers=headers)
-    #         if response.status_code == 200:
-    #             return response.text
-    #         else:
-    #             print(
-    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
-    #             return None
-    #     except Exception as e:
-    #         print(f"An error occurred while fetching {url}: {str(e)}")
-    #         return None
+    def fetch_html(url):
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0',
+            }
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                return response.text
+            else:
+                print(
+                    f"Failed to fetch {url}. Status code: {response.status_code}")
+                return None
+        except Exception as e:
+            print(f"An error occurred while fetching {url}: {str(e)}")
+            return None
 
 
-    # def extract_video_links(html_content):
-    #     video_links = set()  # Use a set to store unique links
-    #     soup = BeautifulSoup(html_content, 'html.parser')
-    #     # Find 'a' tags with 'href' attribute
-    #     video_tags = soup.find_all('a', href=True)
+    def extract_video_links(html_content):
+        video_links = set()  # Use a set to store unique links
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # Find 'a' tags with 'href' attribute
+        video_tags = soup.find_all('a', href=True)
 
-    #     for tag in video_tags:
-    #         video_url = tag['href']
-    #         if video_url and video_url.startswith('https://www.aajtak'):
-    #             video_links.add(video_url)
+        for tag in video_tags:
+            video_url = tag['href']
+            if video_url and video_url.startswith('https://www.aajtak'):
+                video_links.add(video_url)
 
-    #     return list(video_links)
-
-
-    # def crawl_website(url, max_links):
-    #     visited_links = set()
-    #     to_visit = [url]
-    #     all_video_links = set()
-
-    #     while to_visit and len(all_video_links) < max_links:
-    #         current_url = to_visit.pop(0)
-    #         if current_url not in visited_links:
-    #             html_content = fetch_html(current_url)
-    #             if html_content:
-    #                 video_links = extract_video_links(html_content)
-    #                 with open('./aajtak_link.csv', 'a') as f:
-    #                     for link in video_links:
-    #                         if "/video/" in link and link not in all_video_links and len(link) > 60:
-    #                             f.write(link + '\n')
-    #                             all_video_links.add(link)
-
-    #                 visited_links.add(current_url)
-    #                 to_visit.extend(video_links)
+        return list(video_links)
 
 
-    # news_websites = [
-    #     'https://www.aajtak.in/videos'
-    # ]
+    def crawl_website(url, max_links):
+        visited_links = set()
+        to_visit = [url]
+        all_video_links = set()
 
-    # for website in news_websites:
-    #     crawl_website(website, max_links=100)
+        while to_visit and len(all_video_links) < max_links:
+            current_url = to_visit.pop(0)
+            if current_url not in visited_links:
+                html_content = fetch_html(current_url)
+                if html_content:
+                    video_links = extract_video_links(html_content)
+                    with open('./aajtak_link.csv', 'a') as f:
+                        for link in video_links:
+                            if "/video/" in link and link not in all_video_links and len(link) > 60:
+                                f.write(link + '\n')
+                                all_video_links.add(link)
 
-    # print("Crawling completed.")
+                    visited_links.add(current_url)
+                    to_visit.extend(video_links)
+
+
+    news_websites = [
+        'https://www.aajtak.in/videos'
+    ]
+
+    for website in news_websites:
+        crawl_website(website, max_links=100)
+
+    print("Crawling completed.")
 
     csv_file_path = './aajtak_link.csv'
 
@@ -833,66 +833,66 @@ def IndianExpressVideo():
     row+=1
 
 
-    # def fetch_html(url):
-    #     try:
-    #         response = requests.get(url)
-    #         if response.status_code == 200:
-    #             return response.text
-    #         else:
-    #             print(
-    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
-    #             return None
-    #     except Exception as e:
-    #         print(f"An error occurred while fetching {url}: {str(e)}")
-    #         return None
+    def fetch_html(url):
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                return response.text
+            else:
+                print(
+                    f"Failed to fetch {url}. Status code: {response.status_code}")
+                return None
+        except Exception as e:
+            print(f"An error occurred while fetching {url}: {str(e)}")
+            return None
 
 
-    # def extract_video_links(html_content):
-    #     video_links = set()  # Use a set to store unique links
-    #     soup = BeautifulSoup(html_content, 'html.parser')
-    #     # Find 'a' tags with 'href' attribute
-    #     video_tags = soup.find_all('a', href=True)
+    def extract_video_links(html_content):
+        video_links = set()  # Use a set to store unique links
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # Find 'a' tags with 'href' attribute
+        video_tags = soup.find_all('a', href=True)
 
-    #     for tag in video_tags:
-    #         video_url = tag['href']
-    #         if video_url.startswith('https://indianexpress'):
-    #             video_links.add(video_url)
+        for tag in video_tags:
+            video_url = tag['href']
+            if video_url.startswith('https://indianexpress'):
+                video_links.add(video_url)
 
-    #     return list(video_links)
+        return list(video_links)
 
 
-    # def crawl_website(url, max_links):
-    #     visited_links = set()
-    #     to_visit = [url]
-    #     all_video_links = set()
+    def crawl_website(url, max_links):
+        visited_links = set()
+        to_visit = [url]
+        all_video_links = set()
 
-    #     while to_visit and len(all_video_links) < max_links:
-    #         current_url = to_visit.pop(0)
-    #         if current_url not in visited_links:
-    #             html_content = fetch_html(current_url)
-    #             if html_content:
-    #                 video_links = extract_video_links(html_content)
+        while to_visit and len(all_video_links) < max_links:
+            current_url = to_visit.pop(0)
+            if current_url not in visited_links:
+                html_content = fetch_html(current_url)
+                if html_content:
+                    video_links = extract_video_links(html_content)
                 
-    #                 with open('./indianexpress_link.csv', 'a') as f:
-    #                     for link in video_links:
-    #                         if "/videos/" in link and link not in all_video_links and len(link) > 60:
-    #                             f.write(link + '\n')
-    #                             all_video_links.add(link)
+                    with open('./indianexpress_link.csv', 'a') as f:
+                        for link in video_links:
+                            if "/videos/" in link and link not in all_video_links and len(link) > 60:
+                                f.write(link + '\n')
+                                all_video_links.add(link)
 
-    #                 visited_links.add(current_url)
-    #                 # Add found video links to the queue
-    #                 to_visit.extend(video_links)
+                    visited_links.add(current_url)
+                    # Add found video links to the queue
+                    to_visit.extend(video_links)
 
 
-    # # List of news websites to crawl
-    # news_websites = [
-    #     'https://indianexpress.com/'
-    # ]
+    # List of news websites to crawl
+    news_websites = [
+        'https://indianexpress.com/'
+    ]
 
-    # for website in news_websites:
-    #     crawl_website(website, max_links=1)
+    for website in news_websites:
+        crawl_website(website, max_links=1)
 
-    # print("Crawling completed.")
+    print("Crawling completed.")
 
 
     csv_file_path = './indianexpress_link.csv'
@@ -931,69 +931,69 @@ def ZeeNewsVideos():
     row+=1
 
 
-    # def fetch_html(url):
-    #     try:
-    #         headers = {
-    #             'User-Agent': 'Mozilla/5.0',
-    #         }
-    #         response = requests.get(url, headers=headers)
-    #         if response.status_code == 200:
-    #             return response.text
-    #         else:
-    #             print(
-    #                 f"Failed to fetch {url}. Status code: {response.status_code}")
-    #             return None
-    #     except Exception as e:
-    #         print(f"An error occurred while fetching {url}: {str(e)}")
-    #         return None
+    def fetch_html(url):
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0',
+            }
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                return response.text
+            else:
+                print(
+                    f"Failed to fetch {url}. Status code: {response.status_code}")
+                return None
+        except Exception as e:
+            print(f"An error occurred while fetching {url}: {str(e)}")
+            return None
 
 
-    # def extract_video_links(html_content):
-    #     video_links = set()  # Use a set to store unique links
-    #     soup = BeautifulSoup(html_content, 'html.parser')
-    #     # Find 'a' tags with 'href' attribute
-    #     video_tags = soup.find_all('a', href=True)
+    def extract_video_links(html_content):
+        video_links = set()  # Use a set to store unique links
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # Find 'a' tags with 'href' attribute
+        video_tags = soup.find_all('a', href=True)
 
-    #     for tag in video_tags:
-    #         video_url = tag['href']
-    #         if video_url and not video_url.startswith('http'):
-    #             video_url = 'https://zeenews.india.com' + video_url
-    #             video_links.add(video_url)
+        for tag in video_tags:
+            video_url = tag['href']
+            if video_url and not video_url.startswith('http'):
+                video_url = 'https://zeenews.india.com' + video_url
+                video_links.add(video_url)
 
-    #     return list(video_links)
-
-
-    # def crawl_website(url, max_links):
-    #     visited_links = set()
-    #     to_visit = [url]
-    #     all_video_links = set()
-
-    #     while to_visit and len(all_video_links) < max_links:
-    #         current_url = to_visit.pop(0)
-    #         if current_url not in visited_links:
-    #             html_content = fetch_html(current_url)
-    #             if html_content:
-    #                 video_links = extract_video_links(html_content)
-    #                 with open('zeenews_link.csv', 'a') as f:
-    #                     for link in video_links:
-    #                         if "com/video/" in link and link not in all_video_links and len(link) > 60:
-    #                             f.write(link + '\n')
-    #                             all_video_links.add(link)
-
-    #                 visited_links.add(current_url)
-    #                 # Add found video links to the queue
-    #                 to_visit.extend(video_links)
+        return list(video_links)
 
 
-    # # List of news websites to crawl
-    # news_websites = [
-    #     'https://zeenews.india.com/videos'
-    # ]
+    def crawl_website(url, max_links):
+        visited_links = set()
+        to_visit = [url]
+        all_video_links = set()
 
-    # for website in news_websites:
-    #     crawl_website(website, max_links=10)
+        while to_visit and len(all_video_links) < max_links:
+            current_url = to_visit.pop(0)
+            if current_url not in visited_links:
+                html_content = fetch_html(current_url)
+                if html_content:
+                    video_links = extract_video_links(html_content)
+                    with open('zeenews_link.csv', 'a') as f:
+                        for link in video_links:
+                            if "com/video/" in link and link not in all_video_links and len(link) > 60:
+                                f.write(link + '\n')
+                                all_video_links.add(link)
 
-    # print("Crawling completed.")
+                    visited_links.add(current_url)
+                    # Add found video links to the queue
+                    to_visit.extend(video_links)
+
+
+    # List of news websites to crawl
+    news_websites = [
+        'https://zeenews.india.com/videos'
+    ]
+
+    for website in news_websites:
+        crawl_website(website, max_links=10)
+
+    print("Crawling completed.")
 
     csv_file_path = './zeenews_link.csv'
 
@@ -1022,20 +1022,20 @@ def ZeeNewsVideos():
     
 def index (request):
     print("The Session started")
-    # thread1 = threading.Thread(target=AajtakVideo)
-    # thread5 = threading.Thread(target=IndianExpressVideo)
-    # thread6 = threading.Thread(target=ZeeNewsVideos)
+    thread1 = threading.Thread(target=AajtakVideo)
+    thread5 = threading.Thread(target=IndianExpressVideo)
+    thread6 = threading.Thread(target=ZeeNewsVideos)
 
-    # # Start the threads
-    # thread1.start()
-    # thread5.start()
-    # thread6.start()
+    # Start the threads
+    thread1.start()
+    thread5.start()
+    thread6.start()
 
-    # # Wait for all threads to finish
-    # thread1.join()
+    # Wait for all threads to finish
+    thread1.join()
 
-    # thread5.join()
-    # thread6.join()
+    thread5.join()
+    thread6.join()
 
     PreProcessTheData()
     news=[]
